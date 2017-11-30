@@ -5,13 +5,13 @@ import java.util.Date;
 
 public class User {
 
-	public Long id;
-	public String name;
-	public String email;
-	public Date birthDay;
-	public BigDecimal cashAmount;
-	public String address;
-	public Integer age;
+	private Long id;
+	private String name;
+	private String email;
+	private Date birthDay;
+	private BigDecimal cashAmount;
+	private String address;
+	private Integer age;
 	
 	public String getAddress() {
 		return address;

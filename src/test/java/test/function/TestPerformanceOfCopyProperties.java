@@ -7,11 +7,13 @@ import java.util.List;
 
 import test.pojo.User;
 import top.feilix.soa.common.util.ReflectAsmUtil;
+import top.feilix.soa.common.util.ReflectAsmUtil;
+import top.feilix.soa.common.util.ReflectAsmUtil;
 
 /**
  * 测试几种JavaBean属性复制工具的性能
  * 结果->
- * 效率：原生复制 >> reflect-asm > spring >> apache
+ * 效率：原生复制  >> reflect-asm > spring >> apache
  * 推荐：spring
  * @author feilix
  *
@@ -29,7 +31,7 @@ public class TestPerformanceOfCopyProperties {
 		System.out.println("org.apache.commons.BeanUtils.copyProperties->" + srcs.size() + "个对象复制耗时：" + ((System.currentTimeMillis() - start)*1.0/1000) + "秒");	
 	}
 	
-	public static void useSpringBeanUtils(List<User> srcs) throws Exception {
+	public static List<User> useSpringBeanUtils(List<User> srcs) throws Exception {
 		List<User> dests = new ArrayList<User>();
 		long start = System.currentTimeMillis();
 		for(User src : srcs) {
@@ -38,6 +40,7 @@ public class TestPerformanceOfCopyProperties {
 			dests.add(dest);
 		}
 		System.out.println("org.springframework.beans.BeanUtils.copyProperties->" + srcs.size() + "个对象复制耗时：" + ((System.currentTimeMillis() - start)*1.0/1000) + "秒");	
+		return dests;
 	}
 	
 	public static void useReflectAsmBeanUtils(List<User> srcs) throws Exception {
@@ -90,15 +93,21 @@ public class TestPerformanceOfCopyProperties {
 		
 		//TestReflectAsmUtil.useApacheBeanUtils(srcs);
 		TestPerformanceOfCopyProperties.copyRaw(srcs);
-		TestPerformanceOfCopyProperties.useReflectAsmBeanUtils(srcs);
 		TestPerformanceOfCopyProperties.useSpringBeanUtils(srcs);
+		TestPerformanceOfCopyProperties.useReflectAsmBeanUtils(srcs);
 		
 		//第二次调用会有内部缓存优化性能，效率可提升一倍
 		System.out.println("--------------------------------------------------------");
 		//TestReflectAsmUtil.useApacheBeanUtils(srcs);
 		TestPerformanceOfCopyProperties.copyRaw(srcs);
-		TestPerformanceOfCopyProperties.useReflectAsmBeanUtils(srcs);
 		TestPerformanceOfCopyProperties.useSpringBeanUtils(srcs);
+		TestPerformanceOfCopyProperties.useReflectAsmBeanUtils(srcs);
+		
+		System.out.println("--------------------------------------------------------");
+		//TestReflectAsmUtil.useApacheBeanUtils(srcs);
+		TestPerformanceOfCopyProperties.copyRaw(srcs);
+		TestPerformanceOfCopyProperties.useSpringBeanUtils(srcs);
+		TestPerformanceOfCopyProperties.useReflectAsmBeanUtils(srcs);
 		
 	}
 }
